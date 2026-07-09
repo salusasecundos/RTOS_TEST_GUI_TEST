@@ -1,0 +1,79 @@
+/*
+ * usb_task.c
+ *
+ *  Created on: 6 апр. 2021 г.
+ *      Author: Zver
+ */
+#include "usb_task.h"
+#include "tusb.h"
+#include "usbd_custom_hid_if.h"
+#include "bme280_defs.h"
+#include "cmsis_os.h"
+
+char string_USB[0x40] ={0};
+extern bme280_data comp_data;
+uint8_t ready = 0;
+char string[32] ={0};
+
+void Usb_Task_Init(void)
+{
+	osThreadDef(usbtask, usb_task, osPriorityLow, 0, 512);
+	UsbTaskHandle = osThreadCreate(osThread(usbtask), NULL);
+}
+
+
+/* USER CODE BEGIN Header_StartTask04 */
+/**
+* @brief Function implementing the myTask04 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask04 */
+void usb_task(void const * argument)
+{
+	/* USER CODE BEGIN StartTask04 */
+	tusb_init();
+	/* Infinite loop */
+	for(;;)
+	{
+/*
+		osDelay(300);
+		BSP_LED_Toggle(LED3);//LED_GREEN
+*/
+		tud_task(); // tinyusb device task
+
+  }
+  /* USER CODE END StartTask04 */
+}
+
+//--------------------------------------------------------------------+
+// USB HID
+//--------------------------------------------------------------------+
+
+// Invoked when received GET_REPORT control request
+// Application must fill buffer report's content and return its length.
+// Return zero will cause the stack to STALL request
+uint16_t tud_hid_get_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t report_type, uint8_t* buffer, uint16_t reqlen)
+{
+  // TODO not Implemented
+  (void) itf;
+  (void) report_id;
+  (void) report_type;
+  (void) buffer;
+  (void) reqlen;
+
+  return 0;
+}
+
+// Invoked when received SET_REPORT control request or
+// received data on OUT endpoint ( Report ID = 0, Type = 0 )
+void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t report_type, uint8_t const* buffer, uint16_t bufsize)
+{
+  // This example doesn't use multiple report and report ID
+  (void) itf;
+  (void) report_id;
+  (void) report_type;
+
+  // echo back anything we received from host
+  tud_hid_report(0, buffer, bufsize);
+}

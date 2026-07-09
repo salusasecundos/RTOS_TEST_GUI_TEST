@@ -1,0 +1,15 @@
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/hw/bsp"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/class/hid"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/common"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/device"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/osal"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/portable/st/stm32_fsdev"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/tinyusb/src/portable/st/synopsys"/>

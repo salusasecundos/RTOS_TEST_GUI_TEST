@@ -1,0 +1,2 @@
+../Core/tasks/gui_task.c:27:6:Gui_Task_Init	40	static
+../Core/tasks/gui_task.c:40:6:gui_task	24	static

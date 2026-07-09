@@ -1,0 +1,57 @@
+
+
+
+
+osMailQId USB_Queue;
+osMailQId USB_Out_Queue;
+
+typedef struct
+{
+	char string_USB[0x40];
+	char usb_recieved;
+} struct_usb;
+
+
+char string_USB[0x40] ={0};
+
+
+
+osMailQDef(usbinqueue, MAIL_SIZE, struct_usb);
+USB_Queue = osMailCreate(osMailQ(usbinqueue), NULL);
+	
+	
+	
+osEvent event;
+struct_usb *qstruct;
+	
+	
+	
+	
+	
+	event = osMailGet(USB_Queue, 10);
+if (event.status == osEventMail)
+{
+	qstruct = event.value.p;
+	memcpy(string_USB, qstruct->string_USB, 64);
+	ready = qstruct->usb_recieved;
+	osMailFree(USB_Queue, qstruct);
+}
+		
+		
+		
+		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		struct_usb *qstruct;
+struct_usb *o_qstruct;
+
+osEvent transmit;
+
+
+
+	qstruct = osMailAlloc(USB_Queue, 10);			//osWaitForever
+	memcpy(qstruct->string_USB, state, 0x40);
+	qstruct->usb_recieved = 1;
+	osMailPut(USB_Queue, qstruct);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

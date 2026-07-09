@@ -1,0 +1,2 @@
+../Core/tasks/led_task.c:17:6:Led_Task_Init	40	static
+../Core/tasks/led_task.c:30:6:led_task	16	static
