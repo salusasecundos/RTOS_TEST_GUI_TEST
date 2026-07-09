@@ -1,0 +1,18 @@
+# Build artifacts
+*.o
+*.d
+*.su
+*.elf
+*.map
+*.list
+
+# Backup files
+*.bak
+
+# VS Code
+.vscode/
+
+# CubeIDE debug output
+Debug/**/*.o
+Debug/**/*.d
+Debug/**/*.su
