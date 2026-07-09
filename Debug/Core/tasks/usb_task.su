@@ -1,2 +1,0 @@
-../Core/tasks/usb_task.c:23:6:Usb_Task_Init	56	static
-../Core/tasks/usb_task.c:39:6:usb_task	48	static

@@ -1,4 +1,0 @@
-../Drivers/BSP/components/common/sensor_API.c:69:8:BME_API_I2C_bus_write	24	static
-../Drivers/BSP/components/common/sensor_API.c:85:8:BME_API_I2C_bus_read	56	dynamic
-../Drivers/BSP/components/common/sensor_API.c:97:9:Bme_API_Read_ID	16	static
-../Drivers/BSP/components/common/sensor_API.c:106:6:BME_API_delay_msek	16	static

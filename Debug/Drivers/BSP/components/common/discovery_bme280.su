@@ -1,6 +1,0 @@
-../Drivers/BSP/components/common/discovery_bme280.c:126:9:BSP_BME_Init	24	static
-../Drivers/BSP/components/common/discovery_bme280.c:154:9:BSP_BME_ReadData	16	static
-../Drivers/BSP/components/common/discovery_bme280.c:177:9:BSP_BMP_ReadData	16	static
-../Drivers/BSP/components/common/discovery_bme280.c:217:9:BSP_BMP_ReadPressure	4	static
-../Drivers/BSP/components/common/discovery_bme280.c:233:10:BSP_BMP_Read_U_pressure	4	static
-../Drivers/BSP/components/common/discovery_bme280.c:242:10:BSP_BMP_Read_U_temperature	4	static
