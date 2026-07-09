@@ -13,5 +13,6 @@
         }
     },
 
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y make gcc-arm-none-eabi gdb-multiarch"
+ 
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y git make gcc-arm-none-eabi gdb-multiarch"
 }
