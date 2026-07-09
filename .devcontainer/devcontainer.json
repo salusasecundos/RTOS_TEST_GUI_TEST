@@ -2,7 +2,7 @@
     "name": "STM32 Dev",
 
     "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu",
-
+    
     "customizations": {
         "vscode": {
             "extensions": [
