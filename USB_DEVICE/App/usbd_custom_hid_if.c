@@ -21,6 +21,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_custom_hid_if.h"
+#include "usb_task.h"
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -35,6 +36,7 @@
 
 uint8_t buffer_OUT[0x40];
 extern osMailQId USB_Queue;
+extern osMailQId USB_Out_Queue;
 
 struct_usb *qstruct;
 struct_usb *o_qstruct;
@@ -204,7 +206,7 @@ static int8_t CUSTOM_HID_DeInit_FS(void)
 //////////////////////////////////////////////////////////////////////////////////////////////////
 static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 {
-/*
+
 	transmit = osMailGet(USB_Out_Queue, 10);
 	if (transmit.status == osEventMail)
 	{
@@ -214,7 +216,7 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 		osMailFree(USB_Out_Queue, qstruct);
 	}
 	printf("2: ok");
-*/
+
 
 //	memcpy(buffer_OUT, o_qstruct->string_USB, 64);
 
@@ -233,10 +235,13 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 	//void *	 memcpy (void *__restrict, const void *__restrict, size_t);
 	//memcpy(buffer, state, 0x40);
 
-//	qstruct = osMailAlloc(USB_Queue, NON_TIMEOUT);			//osWaitForever
-	memcpy(qstruct->string_USB, state, 0x40);
-	qstruct->usb_recieved = 1;
-	osMailPut(USB_Queue, qstruct);
+	qstruct = osMailAlloc(USB_Queue, NON_TIMEOUT);			//osWaitForever  NON_TIMEOUT
+	if (qstruct != NULL)
+	{
+		memcpy(qstruct->string_USB, state, 0x40);
+		qstruct->usb_recieved = 1;
+		osMailPut(USB_Queue, qstruct);
+	}
 
 	/* Start next USB packet transfer once data processing is completed */
 	USBD_CUSTOM_HID_ReceivePacket(&hUsbDeviceFS);

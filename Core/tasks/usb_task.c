@@ -10,12 +10,14 @@
 #include "discovery_bme280.h"
 #include "cmsis_os.h"
 
+
 extern bme280_data comp_data;
+
 
 osMailQId USB_Queue;
 osMailQId USB_Out_Queue;
-osThreadId UsbTaskHandle;
 
+osThreadId UsbTaskHandle;
 uint8_t ready = 0;
 char string[32] ={0};
 char string_USB[0x40] ={0};
@@ -27,6 +29,10 @@ void Usb_Task_Init(void)
 
 	osMailQDef(usbinqueue, MAIL_SIZE, struct_usb);
 	USB_Queue = osMailCreate(osMailQ(usbinqueue), NULL);
+
+	osMailQDef(usboutqueue, MAIL_SIZE, struct_usb);
+	USB_Out_Queue = osMailCreate(osMailQ(usboutqueue), NULL);
+
 }
 
 /* USER CODE BEGIN Header_StartTask04 */
@@ -43,12 +49,12 @@ void usb_task(void const * argument)
 
 	osEvent event;
 	struct_usb *qstruct;
-//	struct_usb *o_qstruct;
+	struct_usb *o_qstruct;
 
 	/* Infinite loop */
 	for(;;)
 	{
-		osDelay(200);
+//		osDelay(200);
 		BSP_LED_Toggle(LED3);//LED_GREEN
 /*
 		sprintf(string, "Temperatura : %li.%li", comp_data.temperature/100, comp_data.temperature%100);
@@ -68,7 +74,7 @@ void usb_task(void const * argument)
 			printf("\n");
 		}
 
-/*
+
 		o_qstruct = osMailAlloc(USB_Out_Queue, 10);
 
 		o_qstruct->string_USB[5] = (rt >> 24);
@@ -80,7 +86,7 @@ void usb_task(void const * argument)
 		o_qstruct->string_USB[10] = ((rp >> 16) & 0xFF);
 		o_qstruct->string_USB[11] = ((rp >> 8) & 0xFF);
 		o_qstruct->string_USB[12] = (rp & 0xFF);
-*/
+
 		/*
 		printf("%08X\n", o_qstruct->string_USB[5]);
 		printf("%08X\n", o_qstruct->string_USB[6]);
@@ -99,7 +105,13 @@ void usb_task(void const * argument)
 		o_qstruct->string_USB[15] = ((tmp2 >> 8) & 0xFF);
 		o_qstruct->string_USB[16] = (tmp2 & 0xFF);
 		 */
-//		osMailPut(USB_Out_Queue, o_qstruct);
+
+		if (o_qstruct != NULL)
+		{
+		    /* заполняешь o_qstruct */
+
+		    osMailPut(USB_Out_Queue, o_qstruct);
+		}
 
 
 

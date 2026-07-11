@@ -34,7 +34,8 @@
 #define NON_TIMEOUT 0
 
 /* USER CODE END Includes */
-
+// extern osMailQId USB_Queue;
+// extern osMailQId USB_Out_Queue;
 /* USER CODE BEGIN Private defines */
 
 //USBD_HandleTypeDef hUsbDeviceFS;

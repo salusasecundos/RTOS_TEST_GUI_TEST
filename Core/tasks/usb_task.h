@@ -37,6 +37,8 @@
 
 /* USER CODE BEGIN Private defines */
 
+extern osMailQId USB_Queue;
+extern osMailQId USB_Out_Queue;
 extern int32_t rt,rp,rh;
 
 #define MAIL_SIZE (uint32_t)	1
