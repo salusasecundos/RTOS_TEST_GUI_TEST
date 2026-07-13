@@ -69,11 +69,10 @@ void usb_task(void const * argument)
 			ready = qstruct->usb_recieved;
 			osMailFree(USB_Queue, qstruct);
 
-			sprintf(string, "%d", string_USB[2]);
-			printf(string);
-			printf("\n");
+//			sprintf(string, "%d", string_USB[2]);
+//			printf(string);
+//			printf("\n");
 		}
-
 
 		o_qstruct = osMailAlloc(USB_Out_Queue, 10);
 
@@ -92,19 +91,25 @@ void usb_task(void const * argument)
 		printf("%08X\n", o_qstruct->string_USB[6]);
 		printf("%08X\n", o_qstruct->string_USB[7]);
 		printf("%08X\n", o_qstruct->string_USB[8]);
+*/
 
-		printf("%08X\n", o_qstruct->string_USB[9]);
-		printf("%08X\n", o_qstruct->string_USB[10]);
-		printf("%08X\n", o_qstruct->string_USB[11]);
-		printf("%08X\n", o_qstruct->string_USB[12]);
+		o_qstruct->string_USB[13] = (rh >> 24);
+		o_qstruct->string_USB[14] = ((rh >> 16) & 0xFF);
+		o_qstruct->string_USB[15] = ((rh >> 8) & 0xFF);
+		o_qstruct->string_USB[16] = (rh & 0xFF);
+
+
+//		sprintf(string2, "Temperatura : %li.%li", rt/100, rt%100);
+
+//		sprintf(string2, "Temperatura : %li.%li", rt/100, rt%100);
+//		printf("Temperatura : %li.%li \r", rh/100, rh%100);
+/*
+		printf("%08X\n", o_qstruct->string_USB[13]);
+		printf("%08X\n", o_qstruct->string_USB[14]);
+		printf("%08X\n", o_qstruct->string_USB[15]);
+		printf("%08X\n", o_qstruct->string_USB[16]);
 		printf("\n");
 */
-		/*
-		o_qstruct->string_USB[13] = (tmp2 >> 24);
-		o_qstruct->string_USB[14] = ((tmp2 >> 16) & 0xFF);
-		o_qstruct->string_USB[15] = ((tmp2 >> 8) & 0xFF);
-		o_qstruct->string_USB[16] = (tmp2 & 0xFF);
-		 */
 
 		if (o_qstruct != NULL)
 		{

@@ -230,6 +230,11 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 	buffer_OUT[11] = ((rp >> 8) & 0xFF);
 	buffer_OUT[12] = (rp & 0xFF);
 
+	buffer_OUT[13] = (rh >> 24);
+	buffer_OUT[14] = ((rh >> 16) & 0xFF);
+	buffer_OUT[15] = ((rh >> 8) & 0xFF);
+	buffer_OUT[16] = (rh & 0xFF);
+
 
 	//копирует принимаемые данные в буффер
 	//void *	 memcpy (void *__restrict, const void *__restrict, size_t);

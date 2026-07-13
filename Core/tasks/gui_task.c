@@ -22,7 +22,7 @@ extern bme280_dev dev;
 
 extern char string_USB[0x40];
 
-int32_t rt,rp,rh;
+int32_t rt, rp, rh;
 
 void Gui_Task_Init(void)
 {
@@ -80,12 +80,18 @@ void gui_task(void const *argument)
     		GUI_DispStringAt(string2, 10, 45);
     		sprintf(string2, "Vlazhnost      : %li.%li", rh / 1000, rh % 1000);
     		GUI_DispStringAt(string2, 10, 65);
-			sprintf(string2, "USB_RECIEVED : %d", string_USB[2]);
-			GUI_DispStringAt(string2, 10, 105);
-			sprintf(string2, "USB_RECIEVED : %d", string_USB[3]);
-			GUI_DispStringAt(string2, 10, 125);
 			sprintf(string2, "USB_RECIEVED : %d", string_USB[1]);
+			GUI_DispStringAt(string2, 10, 105);
+			sprintf(string2, "USB_RECIEVED : %d", string_USB[2]);
+			GUI_DispStringAt(string2, 10, 125);
+			sprintf(string2, "USB_RECIEVED : %d", string_USB[3]);
 			GUI_DispStringAt(string2, 10, 145);
+
+			sprintf(string2, "USB_STATUS : ");
+			GUI_DispStringAt(string2, 10, 165);
+
+			sprintf(string2, "LAN_STATUS : ");
+			GUI_DispStringAt(string2, 10, 185);
 		}
 		i=0;
 	}
