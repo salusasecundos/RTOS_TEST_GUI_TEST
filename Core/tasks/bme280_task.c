@@ -43,14 +43,11 @@ void Sensor_Task_Init(void)
 /* USER CODE END Header_StartTask04 */
 void sensor_task(void const * argument)
 {
-
-//	struct_data *qstruct;
 	struct_data *qstruct;
 	uint8_t i = 0;
 
 	for(;;)
 	{
-
 		if (i == 10)
 		{
 			i = 0;
@@ -64,6 +61,22 @@ void sensor_task(void const * argument)
 //            memset(o_qstruct, 0, sizeof(*o_qstruct));
 			qstruct->string_data[1] = i;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             if (osMailPut(Sensor_to_gui_Queue, qstruct) != osOK)
             {
                 //В очередь положить не удалось. Возвращаем блок обратно в пул.
@@ -73,7 +86,7 @@ void sensor_task(void const * argument)
 		}
 
 		osDelay(500);
-
+		BSP_LED_Toggle(LED4); //LED_YELLOW
 	}
 }
 
