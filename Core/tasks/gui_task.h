@@ -52,13 +52,3 @@ extern bme280_data comp_data;
 }
 #endif
 #endif /*__ pinoutConfig_H */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

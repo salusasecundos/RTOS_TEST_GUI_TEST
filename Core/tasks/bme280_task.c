@@ -5,12 +5,9 @@
  *      Author: Zver
  */
 
-//#include "usb_task.h"
 #include "usbd_custom_hid_if.h"
 #include "bme280_task.h"
-//#include "discovery_bme280.h"
 #include "cmsis_os.h"
-
 
 extern bme280_data comp_data;
 
@@ -19,8 +16,6 @@ osMailQId Sensor_to_gui_Queue;
 
 osThreadId SensorTaskHandle;
 //uint8_t ready = 0;
-//char string[32] ={0};
-//char string_USB[0x40] ={0};
 
 void Sensor_Task_Init(void)
 {
@@ -84,11 +79,3 @@ void sensor_task(void const * argument)
 		BSP_LED_Toggle(LED4); //LED_YELLOW
 	}
 }
-
-
-
-
-
-
-
-
