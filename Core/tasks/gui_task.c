@@ -18,6 +18,7 @@ extern bme280_dev dev;
 osThreadId GuiTaskHandle;
 osMailQId USB_Queue;
 struct_usb *qstruct;
+osMailQId Usb_To_gui_Queue;
 
 //int32_t rt, rp, rh;
 //int32_t colour;
@@ -32,20 +33,22 @@ void Gui_Task_Init(void)
 }
 
 
+
 void gui_task(void const *argument)
 {
 	uint8_t i = 0;
-    osEvent event;
-    struct_data *message;
+	uint8_t ready = 0;    
     uint8_t buffer[0x40];
 	uint8_t usb_data_in[0x40];
-    bme280_data buffer1;	//sensor_data_in
-	bme280_data sensor_data_in;
-    int32_t irt, irp, irh;
-	uint8_t ready = 0;
-
 	char string_USB[0x40];
 	char string2[32] ={0};
+	char display_str[32] ={0};
+
+    int32_t irt, irp, irh;
+    bme280_data buffer1;	//sensor_data_in
+	bme280_data sensor_data_in;
+	struct_data *message;
+	osEvent event;
 
     GUI_Clear();
     GUI_SetColor(GUI_WHITE);
@@ -84,7 +87,7 @@ void gui_task(void const *argument)
                 osMailFree(Sensor_to_gui_Queue, message);
             }
 
-    		event = osMailGet(USB_Queue, NON_TIMEOUT);
+    		event = osMailGet(USB_Queue, NON_TIMEOUT);	//Usb_To_gui_Queue
     		if (event.status == osEventMail)
     		{
     			qstruct = event.value.p;
