@@ -17,6 +17,7 @@ extern bme280_dev dev;
 
 osThreadId GuiTaskHandle;
 osMailQId USB_Queue;
+struct_usb *qstruct;
 
 //int32_t rt, rp, rh;
 //int32_t colour;
@@ -41,7 +42,6 @@ void gui_task(void const *argument)
     bme280_data buffer1;	//sensor_data_in
 	bme280_data sensor_data_in;
     int32_t irt, irp, irh;
-	struct_usb *qstruct;
 	uint8_t ready = 0;
 
 	char string_USB[0x40];
