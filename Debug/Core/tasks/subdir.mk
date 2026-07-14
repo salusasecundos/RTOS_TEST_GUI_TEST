@@ -6,18 +6,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/tasks/bme280_task.c \
-../Core/tasks/gui_task.c \
-../Core/tasks/usb_task.c 
+../Core/tasks/gui_task.c 
 
 OBJS += \
 ./Core/tasks/bme280_task.o \
-./Core/tasks/gui_task.o \
-./Core/tasks/usb_task.o 
+./Core/tasks/gui_task.o 
 
 C_DEPS += \
 ./Core/tasks/bme280_task.d \
-./Core/tasks/gui_task.d \
-./Core/tasks/usb_task.d 
+./Core/tasks/gui_task.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +24,7 @@ Core/tasks/%.o Core/tasks/%.su Core/tasks/%.cyclo: ../Core/tasks/%.c Core/tasks/
 clean: clean-Core-2f-tasks
 
 clean-Core-2f-tasks:
-	-$(RM) ./Core/tasks/bme280_task.cyclo ./Core/tasks/bme280_task.d ./Core/tasks/bme280_task.o ./Core/tasks/bme280_task.su ./Core/tasks/gui_task.cyclo ./Core/tasks/gui_task.d ./Core/tasks/gui_task.o ./Core/tasks/gui_task.su ./Core/tasks/usb_task.cyclo ./Core/tasks/usb_task.d ./Core/tasks/usb_task.o ./Core/tasks/usb_task.su
+	-$(RM) ./Core/tasks/bme280_task.cyclo ./Core/tasks/bme280_task.d ./Core/tasks/bme280_task.o ./Core/tasks/bme280_task.su ./Core/tasks/gui_task.cyclo ./Core/tasks/gui_task.d ./Core/tasks/gui_task.o ./Core/tasks/gui_task.su
 
 .PHONY: clean-Core-2f-tasks
 

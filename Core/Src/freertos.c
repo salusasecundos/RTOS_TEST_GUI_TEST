@@ -25,7 +25,7 @@
 #include "cmsis_os.h"
 #include <string.h>
 #include <stdlib.h>
-#include "usb_task.h"
+//#include "usb_task.h"
 #include "gui_task.h"
 //#include "led_task.h"
 #include "bme280_task.h"
@@ -97,7 +97,7 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-	Usb_Task_Init();
+//	Usb_Task_Init();
 	Gui_Task_Init();
 	Sensor_Task_Init();
   /* Infinite loop */

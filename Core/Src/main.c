@@ -138,6 +138,7 @@ int main(void)
   GRAPHICS_Init();
 
   MX_USART3_UART_Init();
+  MX_USB_DEVICE_Init();
 
   printf("Start\n");
   printf("USART3\n");

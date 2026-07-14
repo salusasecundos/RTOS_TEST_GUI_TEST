@@ -307,11 +307,11 @@ struct bme280_data
 #else
 typedef struct
 {
-    /*! Compensated pressure */
-    uint32_t pressure;
+	/*! Compensated temperature */
+	    int32_t temperature;
 
-    /*! Compensated temperature */
-    int32_t temperature;
+	/*! Compensated pressure */
+    uint32_t pressure;
 
     /*! Compensated humidity */
     uint32_t humidity;

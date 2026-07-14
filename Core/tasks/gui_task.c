@@ -10,7 +10,7 @@
 #include "bme280_task.h"
 #include "discovery_bme280.h"
 #include "cmsis_os.h"
-#include "usb_task.h"
+//#include "usb_task.h"
 
 osThreadId GuiTaskHandle;
 
@@ -18,11 +18,12 @@ char string2[32] ={0};
 
 extern bme280_dev dev;
 
-extern char string_USB[0x40];
-extern char string_data[5];
+char string_USB[0x40];
+extern char string_data[0x40];
 extern osMailQId Sensor_to_gui_Queue;
 
 int32_t rt, rp, rh;
+osMailQId USB_Queue;
 
 //int32_t colour;
 
@@ -30,21 +31,15 @@ void Gui_Task_Init(void)
 {
 	osThreadDef(guitask, gui_task, osPriorityLow, 0, 512);
 	GuiTaskHandle = osThreadCreate(osThread(guitask), NULL);
+
+	osMailQDef(usbinqueue, MAIL_SIZE, struct_usb);
+	USB_Queue = osMailCreate(osMailQ(usbinqueue), NULL);
 }
 
-/* USER CODE BEGIN Header_StartTask01 */
-/**
-  * @brief  Function implementing the myTask01 thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END Header_StartTask01 */
+
 void gui_task(void const *argument)
 {
-	/* USER CODE BEGIN StartTask01 */
 	uint8_t i = 0;
-	uint8_t a = 0;
-
 
     GUI_Clear();
     GUI_SetColor(GUI_WHITE);
@@ -56,12 +51,14 @@ void gui_task(void const *argument)
     osEvent event;
     struct_data *message;
     uint8_t buffer[0x40];
+    bme280_data buffer1;
+    int32_t irt, irp, irh;
+	struct_usb *qstruct;
+	uint8_t ready = 0;
 
     /* Infinite loop */
     for(;;)
     {
-
-
     	while (i <= 9)
     	{
     		osDelay(200);
@@ -78,31 +75,33 @@ void gui_task(void const *argument)
 			printf("\nColour is 0x%08X", (unsigned int)colour);
 */
 
-
             event = osMailGet(Sensor_to_gui_Queue, 5);
             if (event.status == osEventMail)
             {
                 message = event.value.p;
         		memcpy(buffer, message->string_data, 64);
+        		buffer1 = message->sensor_data;
                 osMailFree(Sensor_to_gui_Queue, message);
             }
 
+    		event = osMailGet(USB_Queue, NON_TIMEOUT);
+    		if (event.status == osEventMail)
+    		{
+    			qstruct = event.value.p;
+    			memcpy(string_USB, qstruct->string_USB, 64);
+    			ready = qstruct->usb_recieved;
+    			osMailFree(USB_Queue, qstruct);
+    		}
 
+    		irt = buffer1.temperature;
+			irp = buffer1.pressure;
+			irh = buffer1.humidity;
 
-
-    		rt = comp_data.temperature;
-			rp = comp_data.pressure;
-			rh = comp_data.humidity;
-
-
-    		BSP_BME_ReadData();
-
-
-    		sprintf(string2, "Temperatura : %li.%li", rt/100, rt%100);
+    		sprintf(string2, "Temperatura : %li.%li", irt/100, irt%100);
     		GUI_DispStringAt(string2, 10, 25);
-    		sprintf(string2, "Davlenie        : %li.%li", rp / 10000, rp % 10000);
+    		sprintf(string2, "Davlenie        : %li.%li", irp / 10000, irp % 10000);
     		GUI_DispStringAt(string2, 10, 45);
-    		sprintf(string2, "Vlazhnost      : %li.%li", rh / 1000, rh % 1000);
+    		sprintf(string2, "Vlazhnost      : %li.%li", irh / 1000, irh % 1000);
     		GUI_DispStringAt(string2, 10, 65);
 			sprintf(string2, "USB_RECIEVED : %d", string_USB[1]);
 			GUI_DispStringAt(string2, 10, 105);
@@ -119,5 +118,4 @@ void gui_task(void const *argument)
 		}
 		i=0;
 	}
-  /* USER CODE END StartTask01 */
 }

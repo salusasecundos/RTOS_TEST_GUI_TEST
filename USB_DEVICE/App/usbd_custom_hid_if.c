@@ -21,7 +21,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_custom_hid_if.h"
-#include "usb_task.h"
+//#include "usb_task.h"
 #include "bme280_task.h"
 
 /* USER CODE BEGIN INCLUDE */
@@ -37,13 +37,11 @@
 
 uint8_t buffer_OUT[0x40];
 extern osMailQId USB_Queue;
-extern osMailQId USB_Out_Queue;
 
 struct_usb *qstruct;
-struct_usb *o_qstruct;
+struct_data *message;
 
 osEvent transmit;
-
 
 uint8_t out_ok = 0;
 extern int32_t rt,rp,rh;
@@ -204,43 +202,22 @@ static int8_t CUSTOM_HID_DeInit_FS(void)
   * @param  state: Event state
   * @retval USBD_OK if all operations are OK else USBD_FAIL
   */
+
+extern osMailQId Sensor_to_usb_Queue;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 {
+	osEvent event;
 
-	transmit = osMailGet(USB_Out_Queue, 10);
-	if (transmit.status == osEventMail)
-	{
-		o_qstruct = transmit.value.p;
-		memcpy(buffer_OUT, o_qstruct->string_USB, 64);
-//		out_ok = o_qstruct->usb_recieved;
-		osMailFree(USB_Out_Queue, o_qstruct);
+    event = osMailGet(Sensor_to_usb_Queue, 5);
+    if (event.status == osEventMail)
+    {
+        message = event.value.p;
+		memcpy(&buffer_OUT[5], &message->sensor_data, sizeof(message->sensor_data));
+        osMailFree(Sensor_to_usb_Queue, message);
 		printf("got mail: ok\r\n");
-	}
-
-
-
-//	memcpy(buffer_OUT, o_qstruct->string_USB, 64);
-
-	buffer_OUT[5] = (rt >> 24);
-	buffer_OUT[6] = ((rt >> 16) & 0xFF);
-	buffer_OUT[7] = ((rt >> 8) & 0xFF);
-	buffer_OUT[8] = (rt & 0xFF);
-
-	buffer_OUT[9] = (rp >> 24);
-	buffer_OUT[10] = ((rp >> 16) & 0xFF);
-	buffer_OUT[11] = ((rp >> 8) & 0xFF);
-	buffer_OUT[12] = (rp & 0xFF);
-
-	buffer_OUT[13] = (rh >> 24);
-	buffer_OUT[14] = ((rh >> 16) & 0xFF);
-	buffer_OUT[15] = ((rh >> 8) & 0xFF);
-	buffer_OUT[16] = (rh & 0xFF);
-
-
-	//копирует принимаемые данные в буффер
-	//void *	 memcpy (void *__restrict, const void *__restrict, size_t);
-	//memcpy(buffer, state, 0x40);
+    }
 
 	qstruct = osMailAlloc(USB_Queue, NON_TIMEOUT);			//osWaitForever  NON_TIMEOUT
 	if (qstruct != NULL)
@@ -254,38 +231,11 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 	USBD_CUSTOM_HID_ReceivePacket(&hUsbDeviceFS);
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, buffer_OUT, 0x40);
 	return (USBD_OK);
-	/* USER CODE END 6 */
 }
 
-/* USER CODE BEGIN 7 */
-/**
-  * @brief  Send the report to the Host
-  * @param  report: The report to be sent
-  * @param  len: The report length
-  * @retval USBD_OK if all operations are OK else USBD_FAIL
-  */
 
 __UNUSED static int8_t USBD_CUSTOM_HID_SendReport_FS(uint8_t *report, uint16_t len)
 {
   return USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, report, len);
 }
-
-/* USER CODE END 7 */
-
-/* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
-
-/* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

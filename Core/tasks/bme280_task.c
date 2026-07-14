@@ -5,7 +5,7 @@
  *      Author: Zver
  */
 
-#include "usb_task.h"
+//#include "usb_task.h"
 #include "usbd_custom_hid_if.h"
 #include "bme280_task.h"
 //#include "discovery_bme280.h"
@@ -48,45 +48,47 @@ void sensor_task(void const * argument)
 
 	for(;;)
 	{
+		BSP_BME_ReadData();
 		if (i == 10)
 		{
 			i = 0;
 		}
         i++;
-		qstruct = osMailAlloc(Sensor_to_gui_Queue, 5);
 
+        qstruct = osMailAlloc(Sensor_to_gui_Queue, 5);
 		if (qstruct != NULL)
 		{
-			//memory clean but not so neccesary
-//            memset(o_qstruct, 0, sizeof(*o_qstruct));
+//			memory clean but not so neccesary
+//          memset(o_qstruct, 0, sizeof(*o_qstruct));
+//			memcpy(&data.string_data[0], &data.sensor_data, sizeof(data.sensor_data));
+			qstruct->sensor_data = comp_data;
 			qstruct->string_data[1] = i;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             if (osMailPut(Sensor_to_gui_Queue, qstruct) != osOK)
             {
                 //В очередь положить не удалось. Возвращаем блок обратно в пул.
                 osMailFree(Sensor_to_gui_Queue, qstruct);
             }
-            osDelay(100);
 		}
 
-		osDelay(500);
+        qstruct = osMailAlloc(Sensor_to_usb_Queue, 5);
+		if (qstruct != NULL)
+		{
+			qstruct->sensor_data = comp_data;
+            if (osMailPut(Sensor_to_usb_Queue, qstruct) != osOK)
+            {
+                //В очередь положить не удалось. Возвращаем блок обратно в пул.
+                osMailFree(Sensor_to_usb_Queue, qstruct);
+            }
+		}
+		osDelay(200);
 		BSP_LED_Toggle(LED4); //LED_YELLOW
 	}
 }
+
+
+
+
+
+
+
 
