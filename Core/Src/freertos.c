@@ -28,6 +28,7 @@
 #include "usb_task.h"
 #include "gui_task.h"
 #include "led_task.h"
+#include "bme280_task.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 /* USER CODE END Includes */
@@ -81,7 +82,7 @@ void MX_FREERTOS_Init(void) {
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
-	  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 1280);
+	  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
 	  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* Create the thread(s) */
@@ -99,6 +100,7 @@ void StartDefaultTask(void const * argument)
 	Usb_Task_Init();
 	Gui_Task_Init();
 	Led_Task_Init();
+	Sensor_Task_Init();
   /* Infinite loop */
   for(;;)
   {

@@ -36,11 +36,6 @@
 
 
 
-typedef struct
-{
-	char string_USB[0x40];
-	char usb_recieved;
-} struct_usb;
 
 
 /* USER CODE END INCLUDE */

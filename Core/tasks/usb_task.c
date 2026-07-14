@@ -7,7 +7,8 @@
 #include "usb_task.h"
 #include "usbd_custom_hid_if.h"
 //#include "bme280_defs.h"
-#include "discovery_bme280.h"
+//#include "discovery_bme280.h"
+#include "bme280_task.h"
 #include "cmsis_os.h"
 
 
@@ -73,7 +74,7 @@ void usb_task(void const * argument)
 //			printf(string);
 //			printf("\n");
 		}
-
+/*
 		o_qstruct = osMailAlloc(USB_Out_Queue, 10);
 
 		o_qstruct->string_USB[5] = (rt >> 24);
@@ -86,6 +87,12 @@ void usb_task(void const * argument)
 		o_qstruct->string_USB[11] = ((rp >> 8) & 0xFF);
 		o_qstruct->string_USB[12] = (rp & 0xFF);
 
+		o_qstruct->string_USB[13] = (rh >> 24);
+		o_qstruct->string_USB[14] = ((rh >> 16) & 0xFF);
+		o_qstruct->string_USB[15] = ((rh >> 8) & 0xFF);
+		o_qstruct->string_USB[16] = (rh & 0xFF);
+
+*/
 		/*
 		printf("%08X\n", o_qstruct->string_USB[5]);
 		printf("%08X\n", o_qstruct->string_USB[6]);
@@ -93,10 +100,7 @@ void usb_task(void const * argument)
 		printf("%08X\n", o_qstruct->string_USB[8]);
 */
 
-		o_qstruct->string_USB[13] = (rh >> 24);
-		o_qstruct->string_USB[14] = ((rh >> 16) & 0xFF);
-		o_qstruct->string_USB[15] = ((rh >> 8) & 0xFF);
-		o_qstruct->string_USB[16] = (rh & 0xFF);
+
 
 
 //		sprintf(string2, "Temperatura : %li.%li", rt/100, rt%100);
@@ -110,14 +114,14 @@ void usb_task(void const * argument)
 		printf("%08X\n", o_qstruct->string_USB[16]);
 		printf("\n");
 */
-
+/*
 		if (o_qstruct != NULL)
 		{
-		    /* заполняешь o_qstruct */
+		    // заполняешь o_qstruct
 
 		    osMailPut(USB_Out_Queue, o_qstruct);
 		}
-
+*/
 
 
 /*

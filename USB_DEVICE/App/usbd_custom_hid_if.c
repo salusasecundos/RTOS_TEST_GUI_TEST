@@ -22,6 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_custom_hid_if.h"
 #include "usb_task.h"
+#include "bme280_task.h"
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -213,9 +214,10 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 		o_qstruct = transmit.value.p;
 		memcpy(buffer_OUT, o_qstruct->string_USB, 64);
 //		out_ok = o_qstruct->usb_recieved;
-		osMailFree(USB_Out_Queue, qstruct);
+		osMailFree(USB_Out_Queue, o_qstruct);
+		printf("got mail: ok\r\n");
 	}
-	printf("2: ok");
+
 
 
 //	memcpy(buffer_OUT, o_qstruct->string_USB, 64);

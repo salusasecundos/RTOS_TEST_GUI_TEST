@@ -73,8 +73,8 @@ all: main-build
 main-build: RTOS_TEST_GUI_TEST.elf secondary-outputs
 
 # Tool invocations
-RTOS_TEST_GUI_TEST.elf RTOS_TEST_GUI_TEST.map: $(OBJS) $(USER_OBJS) J:\PROJECTS_WORK\F4\GUI\RTOS_TEST_GUI_TEST\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RTOS_TEST_GUI_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"J:\PROJECTS_WORK\F4\GUI\RTOS_TEST_GUI_TEST\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTOS_TEST_GUI_TEST.map" -Wl,--gc-sections -static -L../Middlewares/ST/STemWin/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RTOS_TEST_GUI_TEST.elf RTOS_TEST_GUI_TEST.map: $(OBJS) $(USER_OBJS) L:\PROJECTS_REPOSITORY\RTOS_TEST_GUI_TEST\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RTOS_TEST_GUI_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"L:\PROJECTS_REPOSITORY\RTOS_TEST_GUI_TEST\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTOS_TEST_GUI_TEST.map" -Wl,--gc-sections -static -L../Middlewares/ST/STemWin/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

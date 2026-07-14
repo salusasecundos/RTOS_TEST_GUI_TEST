@@ -34,11 +34,11 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
-osThreadId GuiTaskHandle;
+// osThreadId GuiTaskHandle;
 
 extern bme280_data comp_data;
 
-int32_t rt,rp,rh;
+// int32_t rt,rp,rh;
 /* USER CODE END Private defines */
 
 

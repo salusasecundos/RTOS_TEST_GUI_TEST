@@ -33,7 +33,7 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
- osThreadId LedTaskHandle;
+ // osThreadId LedTaskHandle;
 
  /* USER CODE END Private defines */
 
