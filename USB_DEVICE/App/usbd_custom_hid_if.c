@@ -36,10 +36,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 uint8_t buffer_OUT[0x40];
-extern osMailQId USB_Queue;
-
-struct_usb *qstruct;
-struct_data *message;
+extern osMailQId Usb_To_gui_Queue;
 
 osEvent transmit;
 
@@ -208,6 +205,10 @@ extern osMailQId Sensor_to_usb_Queue;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 {
+
+	struct_usb *qstruct;
+	struct_data *message;
+
 	osEvent event;
 
     event = osMailGet(Sensor_to_usb_Queue, 5);
@@ -219,12 +220,12 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t* state)
 		printf("got mail: ok\r\n");
     }
 
-	qstruct = osMailAlloc(USB_Queue, NON_TIMEOUT);			//osWaitForever  NON_TIMEOUT
+	qstruct = osMailAlloc(Usb_To_gui_Queue, NON_TIMEOUT);			//osWaitForever  NON_TIMEOUT
 	if (qstruct != NULL)
 	{
 		memcpy(qstruct->string_USB, state, 0x40);
 		qstruct->usb_recieved = 1;
-		osMailPut(USB_Queue, qstruct);
+		osMailPut(Usb_To_gui_Queue, qstruct);
 	}
 
 	/* Start next USB packet transfer once data processing is completed */

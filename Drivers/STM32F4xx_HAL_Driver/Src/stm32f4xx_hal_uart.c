@@ -3082,9 +3082,7 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
      Set OVER8 bit according to huart->Init.OverSampling value */
 
   tmpreg = (uint32_t)huart->Init.WordLength | huart->Init.Parity | huart->Init.Mode | huart->Init.OverSampling;
-  MODIFY_REG(huart->Instance->CR1,
-             (uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE | USART_CR1_RE | USART_CR1_OVER8),
-             tmpreg);
+  MODIFY_REG(huart->Instance->CR1, (uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE | USART_CR1_RE | USART_CR1_OVER8), tmpreg);
 
   /*-------------------------- USART CR3 Configuration -----------------------*/
   /* Configure the UART HFC: Set CTSE and RTSE bits according to huart->Init.HwFlowCtl value */

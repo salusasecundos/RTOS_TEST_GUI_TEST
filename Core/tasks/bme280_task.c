@@ -57,7 +57,7 @@ void sensor_task(void const * argument)
 //          memset(o_qstruct, 0, sizeof(*o_qstruct));
 //			memcpy(&data.string_data[0], &data.sensor_data, sizeof(data.sensor_data));
 			qstruct->sensor_data = comp_data;
-			qstruct->string_data[1] = i;
+			qstruct->string_data[39] = i;
             if (osMailPut(Sensor_to_gui_Queue, qstruct) != osOK)
             {
                 //В очередь положить не удалось. Возвращаем блок обратно в пул.

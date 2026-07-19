@@ -96,9 +96,9 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="AZURE_RTOS"/>
 						<entry excluding="tasks/inc|Src/bme280_task.c|Src/sysmem.c|Src/stm32f4xx_it2.c|Src/heap_Newlib.c|Src/111.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port_DRN.c|libusb|tinyusb" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+						<entry excluding="ST/STemWin/Lib/not_need|Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port_DRN.c|libusb|tinyusb" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="NetXDuo"/>
-						<entry excluding="App/GUI_App2.c|App/FramewinDLG.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
+						<entry excluding="App|App/GUI_App2.c|App/FramewinDLG.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="ThreadX"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="USB_DEVICE"/>
 					</sourceEntries>
@@ -193,9 +193,9 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="AZURE_RTOS"/>
 						<entry excluding="tasks/inc|Src/bme280_task.c|Src/sysmem.c|Src/stm32f4xx_it2.c|Src/heap_Newlib.c|Src/111.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port_DRN.c|libusb|tinyusb" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+						<entry excluding="ST/STemWin/Lib/not_need|Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port_DRN.c|libusb|tinyusb" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="NetXDuo"/>
-						<entry excluding="App/GUI_App2.c|App/FramewinDLG.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
+						<entry excluding="App|App/GUI_App2.c|App/FramewinDLG.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="STemWin"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="ThreadX"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="USB_DEVICE"/>
 					</sourceEntries>
